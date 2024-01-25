@@ -2,6 +2,7 @@
 
 namespace App\Livewire;
 
+use Livewire\Attributes\Url;
 use Livewire\Component;
 use App\Models\Person;
 
@@ -13,6 +14,8 @@ class CreatePost extends Component
     public $uname, $ubdate;
 
     public $uid;
+
+    public $search = '';
 
     public function save(){
         $this->validate([
@@ -70,7 +73,7 @@ class CreatePost extends Component
 
     public function render()
     {
-        $persons = Person::all();
+        $persons = Person::where('name', 'like', '%' . $this->search . '%')->paginate(10);  
         return view('livewire.create-post')
             ->with(['persons' => $persons]);
     }

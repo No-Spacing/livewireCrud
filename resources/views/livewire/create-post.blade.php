@@ -21,6 +21,7 @@
     </form>
 
     <div>
+        <input type="form-control" wire:model.live="search" placeholder="Search">
         <table class="table">
             <thead>
                 <tr>
@@ -60,7 +61,11 @@
                 </tr>
                 @endforeach
             </tbody>
+            
         </table>
+        <div class="d-flex">
+            {{ $persons->links() }}
+        </div>
         <div wire:ignore.self class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content">
