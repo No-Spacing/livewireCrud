@@ -5,6 +5,7 @@ namespace App\Livewire;
 use Livewire\Attributes\Url;
 use Livewire\Component;
 use App\Models\Person;
+use Livewire\Attributes\Title;
 
 class CreatePost extends Component
 {
@@ -71,9 +72,10 @@ class CreatePost extends Component
         ]);
     }
 
+    #[Title('Create-post')] 
     public function render()
     {
-        $persons = Person::where('name', 'like', '%' . $this->search . '%')->paginate(10);  
+        $persons = Person::where('name', 'like', '%' . $this->search . '%')->paginate(5);  
         return view('livewire.create-post')
             ->with(['persons' => $persons]);
     }
