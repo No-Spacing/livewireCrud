@@ -4,8 +4,10 @@ namespace App\Livewire;
 
 use Livewire\Attributes\Url;
 use Livewire\Component;
-use App\Models\Person;
 use Livewire\Attributes\Title;
+
+use App\Models\Person;
+use App\Models\User;
 
 class CreatePost extends Component
 {
@@ -32,6 +34,7 @@ class CreatePost extends Component
             'name' => $this->name,
             'email' => $this->email,
             'bdate' => $this->bdate,
+            'user_id' => session('user'),
         ]);
     }
 
@@ -75,7 +78,8 @@ class CreatePost extends Component
     #[Title('Create-post')] 
     public function render()
     {
-        $persons = Person::where('name', 'like', '%' . $this->search . '%')->paginate(5);  
+        $persons = Person::where('name', 'like', '%' . $this->search . '%')
+        ->where('user_id', session('user'))->paginate(5);  
         return view('livewire.create-post')
             ->with(['persons' => $persons]);
     }
