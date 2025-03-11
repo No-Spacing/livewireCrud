@@ -1,7 +1,10 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+
 use App\Livewire\CreatePost;
+use App\Livewire\Login;
+use App\Livewire\Register;
 
 
 /*
@@ -14,9 +17,15 @@ use App\Livewire\CreatePost;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
-
-Route::get('/', function () {
-    return view('welcome');
+    
+    
+Route::group(['middleware'=>['user']], function(){
+    Route::get('/', Login::class);
+    Route::get('register', Register::class);
+    
+    Route::get('/create-post', CreatePost::class); 
+    Route::get('/logout', function () {
+        session()->flush();
+        return redirect('/');
+    });
 });
-
-Route::get('/create-post', CreatePost::class);
