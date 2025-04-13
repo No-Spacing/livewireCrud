@@ -15,12 +15,12 @@ class UserMiddleware
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if(!session()->has('user') && $request->path() != '/' && $request->path() != 'register')
+        if(!session()->has('user') && ($request->path() != '/' && $request->path() != 'register'))
         {
             return back()->with('fail','User must be logged in');
         }
 
-        if(session()->has('user') && $request->path() == '/' || $request->path() == 'register'){
+        if(session()->has('user') && ($request->path() == '/' || $request->path() == 'register')){
             return redirect('/create-post');
         }
 
